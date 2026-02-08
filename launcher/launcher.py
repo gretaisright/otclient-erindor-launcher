@@ -13,6 +13,13 @@ import urllib.request
 import psutil
 import zipfile
 
+EMBEDDED_CONFIG = {
+  "repo_url": "https://github.com/gretaisright/erindor-client.git",
+  "branch": "master",
+  "binaries_base_url": "https://github.com/gretaisright/erindor-client/releases/download/1.0",
+  "git_zip_url": "https://github.com/Juanzitooh/launcher_otclient_git/releases/download/git/git.zip"
+}
+
 # ======================================================
 #  PATHS / CONFIG
 # ======================================================
@@ -38,11 +45,13 @@ CREATE_NO_WINDOW = subprocess.CREATE_NO_WINDOW
 # ======================================================
 
 def load_launcher_config():
-    if not CONFIG_FILE.exists():
-        raise RuntimeError("launcher.json not found")
+    if CONFIG_FILE.exists():
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
 
-    with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    # fallback to embedded config
+    return EMBEDDED_CONFIG.copy()
+
 
 def git_env():
     env = os.environ.copy()
