@@ -1,7 +1,7 @@
 {
-  "repo_url": "https://github.com/JPClient/.github.git",
-  "branch": "JPClient",
-  "binaries_base_url": "https://github.com/JPClient/.github/releases/download/JPClient",
-  "git_zip_url": "https://github.com/Juanzitooh/launcher_otclient_git/releases/download/git/git.zip"
+  "repo_url": "https://github.com/gretaisright/erindor-client.git",
+  "branch": "master",
+  "binaries_base_url": "https://github.com/gretaisright/erindor-client/releases/download/1.0/otclient_gl_x64.exe",
+  "git_zip_url": "https://github.com/gretaisright/otclient-erindor-launcher/releases/tag/1.0"
 }
   
