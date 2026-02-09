@@ -17,7 +17,7 @@ EMBEDDED_CONFIG = {
   "repo_url": "https://github.com/gretaisright/erindor-client.git",
   "branch": "master",
   "binaries_base_url": "https://github.com/gretaisright/erindor-client/releases/download/1.0",
-  "git_zip_url": "https://github.com/Juanzitooh/launcher_otclient_git/releases/download/git/git.zip"
+  "git_zip_url": "https://github.com/gretaisright/otclient-erindor-launcher/releases/download/git/git.zip"
 }
 
 # ======================================================
@@ -37,7 +37,7 @@ GIT_ZIP_URL = "https://github.com/gretaisright/otclient-erindor-launcher/release
 GIT_ZIP_DIR = BASE_DIR / "git"
 GIT_ZIP_PATH = GIT_ZIP_DIR / "git.zip"
 CONFIG_FILE = BASE_DIR / "launcher.json"
-IMAGE_FILE = BASE_DIR / "launcher.png"
+IMAGE_FILE = BASE_DIR / "game_data" / "launcher.png"
 CREATE_NO_WINDOW = subprocess.CREATE_NO_WINDOW
 
 # ======================================================
@@ -51,6 +51,11 @@ def load_launcher_config():
 
     # fallback to embedded config
     return EMBEDDED_CONFIG.copy()
+
+def get_asset_path(name: str) -> Path:
+    base = get_real_base_dir()
+    path = base / name
+    return path if path.exists() else None
 
 
 def git_env():
