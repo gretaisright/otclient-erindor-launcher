@@ -1,0 +1,8 @@
+{
+  "clients": {
+    "dx_x64": {
+      "file": "ErindorClient_dx_x64.exe",
+      "sha256": "8d9faa5b2d3be040be9b8517e8dc06df14b670731f9d43781c1663e1aeaabb22"
+    }
+  }
+}

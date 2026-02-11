@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 
 EXPECTED_BINARIES = [
-    ("gl_x64", "otclient_gl_x64.exe"),
-    ("dx_x64", "_dx_x64.exe"),
+    ("gl_x64", "ErindorClient_gl_x64.exe"),
+    ("dx_x64", "ErindorClient_dx_x64.exe"),
     ("gl_x86", "_gl.exe"),
     ("dx_x86", "_dx.exe"),
 ]

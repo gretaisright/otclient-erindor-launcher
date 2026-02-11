@@ -12,6 +12,10 @@ import hashlib
 import urllib.request
 import psutil
 import zipfile
+import ssl
+import certifi
+
+SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 EMBEDDED_CONFIG = {
   "repo_url": "https://github.com/gretaisright/erindor-client.git",
@@ -39,6 +43,18 @@ GIT_ZIP_PATH = GIT_ZIP_DIR / "git.zip"
 CONFIG_FILE = BASE_DIR / "launcher.json"
 IMAGE_FILE = BASE_DIR / "game_data" / "launcher.png"
 CREATE_NO_WINDOW = subprocess.CREATE_NO_WINDOW
+
+def download_file(url: str, dest: Path):
+    dest.parent.mkdir(parents=True, exist_ok=True)
+
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "ErindorLauncher/1.0"}
+    )
+
+    with urllib.request.urlopen(req, context=SSL_CONTEXT) as response:
+        with open(dest, "wb") as f:
+            f.write(response.read())
 
 # ======================================================
 #  CONFIG
@@ -150,7 +166,7 @@ def ensure_client_binaries(cfg, client_key):
     url = f"{base_url}/{info['file']}"
     print(f"[BIN] Downloading {info['file']}")
 
-    urllib.request.urlretrieve(url, exe_path)
+    download_file(url, exe_path)
 
     if sha256_file(exe_path).lower() != info["sha256"].lower():
         raise RuntimeError(f"Checksum mismatch for {info['file']}")
@@ -259,7 +275,7 @@ def ensure_git_available(cfg, on_status=None):
         on_status("Downloading Git...")
 
     GIT_ZIP_DIR.mkdir(parents=True, exist_ok=True)
-    urllib.request.urlretrieve(git_zip_url, GIT_ZIP_PATH)
+    download_file(git_zip_url, GIT_ZIP_PATH)
 
     if on_status:
         on_status("Extracting Git...")
